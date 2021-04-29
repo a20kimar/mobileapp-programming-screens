@@ -1,42 +1,44 @@
-
 # Rapport
 
-**Skriv din rapport här!**
+Jag började med att skapa en ny activity och namngav den som "SecondActivity".
 
-_Du kan ta bort all text som finns sedan tidigare_.
+Sedan skapade jag en LinearLayout innuti den nuvarande ConstraintLayout i filen `activity_main.xml`. Sedan tog jag bort TextView widgeten som fanns sedan tidigare och skapade en knapp istället. Hela koden syns nedan.
 
-## Följande grundsyn gäller dugga-svar:
+```xml
+...
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
+        <Button
+            android:id="@+id/startSecondActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Open SecondActivity"
+            android:layout_marginTop="250dp"/>
 
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
-```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
-    }
-}
+    </LinearLayout>
+...
 ```
 
-Bilder läggs i samma mapp som markdown-filen.
+Efter jag var nöjd med min layout skapade jag även knappen i `MainActivity` och gav den en onClickListener. Innuti onClick metoden skapar jag en intent som sedan öppnar `SecondActivity`. Jag skapar även ett logmeddelande för felsökning. Nedan är koden för min knapp I `MainActivity`.
+```java
+    Button knapp = findViewById(R.id.startSecondActivity);
+    knapp.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            startActivity(intent);
+            Log.d("Button_Click", "Start SecondActivity.");
+        }
+     });
+```
+Efter detta skapade jag ett fragment och la till en LinearLayout, det nyskapade fragmentet och en knapp i `activity_second.xml` för att stänga mitt fragment. Sedan la jag till knappen i `SecondActivity`. Jag skapade även en OnClickListener för min knapp för att kunna stänga den activity som är överst och visa den activity som är under. Bilderna nedan visar hur appen ser ut när den öppnas samt hur den ser ut när man har öppnat `SecondActivity`.
 
-![](android.png)
+![MainActivity](screenshot_1.png)
 
-Läs gärna:
-
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+![SecondActivity](screenshot_2.png)
