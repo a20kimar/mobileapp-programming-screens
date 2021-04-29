@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button knapp = findViewById(R.id.startSecondActivity);
-
         knapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
